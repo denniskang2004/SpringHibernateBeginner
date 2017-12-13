@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<!-- Load properties file -->
+	<context:property-placeholder location="classpath:sport.properties" />
+
+
+	<!-- Define your beans here -->
+	<bean id="myFortuneService" class="udemy.springHibernate.C1_IOC_XMLConfig.FortuneService">
+	</bean>
+	<bean id="myFortuneServiceRandom" class="udemy.springHibernate.C1_IOC_XMLConfig.FortuneServiceRandom">
+	</bean>
+
+	<bean id="trackCoach" class="udemy.springHibernate.C1_IOC_XMLConfig.TrackCoach">
+		<!-- set up constructor injection -->
+		<constructor-arg ref="myFortuneServiceRandom"></constructor-arg>
+	</bean>
+
+	<bean id="baseballCoach" class="udemy.springHibernate.C1_IOC_XMLConfig.BaseballCoach">
+	</bean>
+
+	<bean id="cricketCoach" class="udemy.springHibernate.C1_IOC_XMLConfig.CricketCoach">
+		<!-- set up setter injection -->
+		<property name="fortuneService" ref="myFortuneService"></property>
+
+		<!-- set up literal value injection -->
+		<property name="emailAddress" value="dk@gmail.com"></property>
+		<property name="team" value="ABC Team"></property>
+
+		<!-- refer to properties in properties file -->
+		<property name="propEmail" value="${foo.email}"></property>
+		<property name="propTeam" value="${foo.team}"></property>
+	</bean>
+</beans>
+
+
+
+
+
